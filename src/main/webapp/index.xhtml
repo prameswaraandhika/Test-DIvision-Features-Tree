@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <center>
+            <br/>
+            <div class="card">
+                <h:form id="form"   >
+                    <p:growl id="messages" showDetail="true"/>
+                    <br/>
+                    <p:outputPanel id="opmain">
+                        <div class="card">
+                            <p:panelGrid columns="3">
+                                <f:facet name="header">
+                                    <h3>FORM TAMBAH DIVISI</h3>
+                                </f:facet>
+                                <p:column colspan="2">
+                                    <a href="admin_dashboard.jsf"> &lt;&lt;  KEMBALI</a>
+                                    <h3>NAMA DIVISI</h3>
+                                    <p:outputLabel id="divisi" for="divisi"/>
+                                    <p:inputText label="Divisi" required="true" value="#{divisiMBean.divisi}" size="34">
+                                        <f:validateLength minimum="3"/>
+                                    </p:inputText>
+                                    <br/><br/>
+                                    <p:commandButton actionListener="#{divisiMBean.tambahNode()}" value="TAMBAH" styleClass="ui-button-raised" update="opmain,messages" />&nbsp;
+                                    <p:commandButton actionListener="#{divisiMBean.hapusNode()}" disabled="#{divisiMBean.isProtected}" value="HAPUS" styleClass="ui-button-raised ui-button-danger" update="opmain,messages" />&nbsp;
+                                    <p:commandButton actionListener="#{divisiMBean.editNode()}" value="UPDATE" styleClass="ui-button-raised ui-button-help" update="opmain,messages" />
+                                </p:column>
+                                <p:column>
+                                    <p:treeTable value="#{divisiMBean.root}"
+                                                 var="divisi" 
+                                                 selectionMode="single"
+                                                 selection="#{divisiMBean.selectedNode}">
+                                        <p:ajax event="expand" listener="#{divisiMBean.onNodeExpand}" update="@form:messages"/>
+                                        <p:ajax event="collapse" listener="#{divisiMBean.onNodeCollapse}" update="@form:messages"/>
+                                        <p:ajax event="select" listener="#{divisiMBean.onNodeSelect}" update="@form:opmain"/>
+                                        <f:facet name="header">
+                                            Divisi struktur
+                                        </f:facet>
+                                        <p:column headerText="Divisi">
+                                            <h:outputText value="#{divisi.divisi}"/>
+                                        </p:column>
+                                        <p:column headerText="Kode Divisi">
+                                            <h:outputText value="#{divisi.kodeDivisi}"/>
+                                        </p:column>
+                                    </p:treeTable>
+                                </p:column>
+                            </p:panelGrid>
+                        </div>
+                    </p:outputPanel>
+                </h:form>
+            </div>
+        </center>
+    </h:body>
+</html>
+

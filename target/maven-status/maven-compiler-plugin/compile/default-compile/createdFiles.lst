@@ -1,0 +1,5 @@
+com\mycompany\formdivisioperasi\DivisiMBean.class
+model\Divisi.class
+com\mycompany\formdivisioperasi\service\FiturDivisiServices.class
+com\mycompany\formdivisioperasi\service\FiturDivisiImpl.class
+sql\ConnectionManager.class
